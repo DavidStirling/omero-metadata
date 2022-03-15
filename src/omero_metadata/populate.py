@@ -1110,7 +1110,7 @@ class ParsingContext(object):
                             {'omero.group': native_str(group)})
         if table is None:
             raise MetadataError(
-                "Unable to create table: %s" % DEFAULT_TABLE_NAME)
+                "Unable to create table: %s" % self.table_name)
         original_file = table.getOriginalFile()
         log.info('Created new table OriginalFile:%d' % original_file.id.val)
         table.initialize(self.columns)
@@ -1237,7 +1237,7 @@ class ParsingContext(object):
         file_annotation = FileAnnotationI()
         file_annotation.ns = rstring(
             'openmicroscopy.org/omero/bulk_annotations')
-        file_annotation.description = rstring(DEFAULT_TABLE_NAME)
+        file_annotation.description = rstring(self.table_name)
         file_annotation.file = OriginalFileI(original_file.id.val, False)
         link = self.create_annotation_link()
         link.parent = self.target_object
